@@ -1,9 +1,18 @@
 import setButton from './button.js';
-
+//const {text} = require('./text_starwars.js');
+// Alternativa para importar todo import * as config from './config.js';
 // Button
 
-document.addEventListener("DOMContentLoaded", () => {
-  setButton();
+
+setButton().then(() => {
+  console.log("Botón presionado y audio iniciado");
+  // Aquí puedes continuar con otra lógica
+  const text = document.getElementById('swText');
+  text.style.display ="block";
+ 
+  
+}).catch((error) => {
+  console.error("Error al activar el botón:", error);
 });
 
 // Ship

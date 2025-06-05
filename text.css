@@ -1,0 +1,36 @@
+#swText {
+    z-index: 3;
+    position: absolute;
+    top:40%;
+    left:47%;
+    color: yellow;
+    transform: translate(-50%, -50%) rotateX(50deg);
+    perspective: 1000px;
+    text-align: center;
+    font-size: 30px;
+    animation: crawl 10s linear forwards;
+
+}
+
+@keyframes crawl {
+  0% {
+    bottom: -00%;
+    opacity: 1;
+  }
+  100% {
+    bottom: -100%;
+    opacity: 0;
+  }
+}
+
+.containerText {
+
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 3;
+  perspective: 1200px; 
+
+} 
+  
