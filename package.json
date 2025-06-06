@@ -1,0 +1,20 @@
+{
+  "name": "mocha-in-sw-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "type": "module",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.30",
+    "chai": "^5.2.0",
+    "jsdom": "^26.1.0",
+    "mocha": "^4.1.0",
+    "sinon": "^20.0.0"
+  }
+}
