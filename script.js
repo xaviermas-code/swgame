@@ -9,7 +9,9 @@ setButton().then(() => {
   // Aquí puedes continuar con otra lógica
   const text = document.getElementById('swText');
   text.style.display ="block";
- 
+ setTimeout(() => {
+        console.log("trying test")
+      }, 13000);
   
 }).catch((error) => {
   console.error("Error al activar el botón:", error);
