@@ -1,15 +1,20 @@
-let c;
+import {updateEnemies} from './enemies.js';
+
+var c;
+const canvas = document.querySelector("canvas");
+c = canvas.getContext("2d");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+
+function workingSpace() {
+
+
 let sizex =100;
 const projectiles = [];
 let lastShootTime = 0;
 const shootCooldown = 400; 
 
-function workingSpace() {
-const canvas = document.querySelector("canvas");
-
-c = canvas.getContext("2d");
-canvas.width = innerWidth;
-canvas.height = innerHeight;
 
 
 
@@ -130,6 +135,7 @@ function animate() {
     c.fillRect(0,0, canvas.width, canvas.height)
     
     Ship.update()
+    updateEnemies();
 
      projectiles.forEach((projectile, index) => {
         if(projectile.position.y + projectile.radius <= 0 ) {
@@ -145,10 +151,10 @@ function animate() {
 
 // Movimiento horizontal
 if (keys.a.pressed && Ship.position.x >=0) {
-    Ship.velocity.x = -5;
+    Ship.velocity.x = -3;
     Ship.rotation = -0.15;
 } else if (keys.d.pressed && Ship.position.x + Ship.sizex <= innerWidth) {
-    Ship.velocity.x = 5;
+    Ship.velocity.x = 3;
     Ship.rotation = 0.15;
 } else {
     Ship.velocity.x = 0;
@@ -157,9 +163,9 @@ if (keys.a.pressed && Ship.position.x >=0) {
 
 // Movimiento vertical
 if (keys.w.pressed && Ship.position.y >=0) {
-    Ship.velocity.y = -5;
+    Ship.velocity.y = -3;
 } else if (keys.s.pressed && Ship.position.y + Ship.sizey <= innerHeight) {
-    Ship.velocity.y = 5;
+    Ship.velocity.y = 3;
 } else {
     Ship.velocity.y = 0;
 }
@@ -232,4 +238,4 @@ class Projectile {
 
 
 
-export {workingSpace};
+export {workingSpace, canvas, c};
