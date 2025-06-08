@@ -1,5 +1,9 @@
 let c;
 let sizex =100;
+const projectiles = [];
+let lastShootTime = 0;
+const shootCooldown = 400; 
+
 function workingSpace() {
 const canvas = document.querySelector("canvas");
 
@@ -89,7 +93,9 @@ addEventListener("keyup", ({key}) => {
         case "s":
             keys.s.pressed = false;
             break;
-    }
+        case " ":
+            keys.space.pressed = false;
+            }
 });
 
 
@@ -103,25 +109,20 @@ addEventListener("keydown",({key}) =>{
             console.log("right")
             keys.d.pressed = true
             break
-            case " ":
-            console.log("space")
+            case "s": 
+            console.log("left")
+            keys.s.pressed = true
             break
             case "w":
+            console.log("right")
             keys.w.pressed = true
             break
-            case "s":
-            keys.s.pressed = true
-    
-        }
-    })
 
-
-
-
-
-
-
-
+            case " ":
+            keys.space.pressed=true;
+                     
+       
+    }});        
 
 function animate() {
     requestAnimationFrame(animate)
@@ -129,6 +130,18 @@ function animate() {
     c.fillRect(0,0, canvas.width, canvas.height)
     
     Ship.update()
+
+     projectiles.forEach((projectile, index) => {
+        if(projectile.position.y + projectile.radius <= 0 ) {
+            
+            setTimeout(() => {
+                projectiles.splice(index, 1)},0)
+            }       
+        else {
+            projectile.update()
+        }
+    })
+
 
 // Movimiento horizontal
 if (keys.a.pressed && Ship.position.x >=0) {
@@ -152,10 +165,67 @@ if (keys.w.pressed && Ship.position.y >=0) {
 }
 
 
+const currentTime = Date.now();
+    if (keys.space.pressed && currentTime - lastShootTime > shootCooldown) {
+        projectiles.push(new Projectile(
+            { x: Ship.position.x + Ship.sizex / 2, y: Ship.position.y },
+            { x: 0, y: -7 },
+            5,
+            1
+        ));
+        lastShootTime = currentTime; // actualizamos la última vez que disparamos
+    }
+}
+
+
+
+
+
+
+animate();
+class Projectile {
+    constructor(position, velocity, radius=5, damage=1) {
+        this._position = position;
+        this._velocity = velocity;
+        this._radius = radius;
+        this._damage = damage;
+    }
+
+    get position() {
+    return this._position;
+}
+
+    get radius() {
+    return this._radius;
+}
+
+    draw() {
+        // Draw the bullet
+    c.beginPath()
+    c.arc(this._position.x, this._position.y, this._radius,0,Math.PI * 2)
+    c.fillStyle = 'red'
+    c.fill()
+    c.closePath()
+
+    }
+
+    update() {
+    this.draw()
+    this._position.x += this._velocity.x
+    this._position.y += this._velocity.y
+
+
+}
+
+
+
 };
 
 
+
 };
+
+
 
 
 
