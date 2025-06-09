@@ -1,4 +1,4 @@
-import {gridAnimate, grids, collision} from './enemies.js';
+import {gridAnimate, grids, collision, projectilesEnemy, ProjectileEnemy} from './enemies.js';
 const projectiles = [];
 var c;
 const canvas = document.querySelector("canvas");
@@ -13,6 +13,8 @@ function workingSpace() {
 let sizex =100;
 
 let lastShootTime = 0;
+let lastShootTime2 = 0;
+let shootCooldown_enemy = 1500;
 const shootCooldown = 400; 
 
 
@@ -153,6 +155,38 @@ function animate() {
     })
 
 
+
+    
+let currentTimeProjectileEnemy= Date.now();
+    if(currentTimeProjectileEnemy - lastShootTime2 > shootCooldown_enemy){
+        grids.forEach((grid) => {
+            grid.enemies.forEach((enemy) => {
+                if(Math.random()*10>8) {
+                projectilesEnemy.push(new ProjectileEnemy(
+                    { x: enemy.position.x + enemy.width / 2, y: enemy.position.y + enemy.height },
+                    { x: 0, y: 7 },
+                    5
+                ));}
+            });
+        });
+        lastShootTime2 = currentTimeProjectileEnemy;
+    }
+
+    // ACTUALIZAR PROYECTILES ENEMIGOS
+    projectilesEnemy.forEach((projectile, index) => {
+        if(projectile.position.y + projectile.radius >= innerHeight ) {
+            setTimeout(() => {
+                projectilesEnemy.splice(index, 1)},0)
+        } else {
+            projectile.update();
+        }
+    });
+
+
+
+
+
+
 // Movimiento horizontal
 if (keys.a.pressed && Ship.position.x >=0) {
     Ship.velocity.x = -3;
@@ -185,7 +219,7 @@ const currentTime = Date.now();
         ));
         lastShootTime = currentTime; // actualizamos la última vez que disparamos
     }
-}
+};
 
 
 

@@ -88,8 +88,8 @@ function animateExplosion(position) {
 
 function collision() {
     grids.forEach((grid) => {
-        grid.enemies.forEach((enemy, i) => {
-            projectiles.forEach((projectile, j) => {
+        grid.enemies.forEach((enemy, i) => { 
+                        projectiles.forEach((projectile, j) => {
                 if (
                     projectile.position.y - projectile.radius <= enemy.position.y + enemy.height &&
                     projectile.position.x + projectile.radius >= enemy.position.x &&
@@ -109,8 +109,47 @@ function collision() {
         });
     });
 }
+const projectilesEnemy = [];
+class ProjectileEnemy {
+    constructor(position, velocity, radius = 5) {
+        this._position = position;
+        this._velocity = velocity;
+        this._radius = radius;
+       
+    }
 
-export {gridAnimate, grids, collision};
+    get position() {
+    return this._position;
+}
+
+    get velocity() {
+    return this._velocity;
+}
+
+    draw() {
+        // Draw the bullet
+    c.beginPath()
+    c.arc(this._position.x, this._position.y, this._radius,0,Math.PI * 2)
+    c.fillStyle = 'blue'
+    c.fill()
+    c.closePath()
+
+    }
+
+    update() {
+    this.draw()
+    this._position.x += this._velocity.x
+    this._position.y += this._velocity.y
+
+
+}
+
+
+};
+
+
+
+export {gridAnimate, grids, collision, ProjectileEnemy, projectilesEnemy};
 
 
 
