@@ -1,5 +1,5 @@
-import {updateEnemies} from './enemies.js';
-
+import {gridAnimate, grids, collision} from './enemies.js';
+const projectiles = [];
 var c;
 const canvas = document.querySelector("canvas");
 c = canvas.getContext("2d");
@@ -11,7 +11,7 @@ function workingSpace() {
 
 
 let sizex =100;
-const projectiles = [];
+
 let lastShootTime = 0;
 const shootCooldown = 400; 
 
@@ -135,7 +135,11 @@ function animate() {
     c.fillRect(0,0, canvas.width, canvas.height)
     
     Ship.update()
-    updateEnemies();
+    
+    gridAnimate();
+    collision();
+
+
 
      projectiles.forEach((projectile, index) => {
         if(projectile.position.y + projectile.radius <= 0 ) {
@@ -238,4 +242,4 @@ class Projectile {
 
 
 
-export {workingSpace, canvas, c};
+export {workingSpace, canvas, c, projectiles};
