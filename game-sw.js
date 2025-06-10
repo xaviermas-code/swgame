@@ -5,10 +5,19 @@ const canvas = document.querySelector("canvas");
 c = canvas.getContext("2d");
 canvas.width = innerWidth;
 canvas.height = innerHeight;
-
+let gameover = false;
+let resolveGamePromise;
+const gameEndPromise = new Promise(resolve => {
+    // Guardamos la función 'resolve' para poder llamarla más tarde desde cualquier lugar.
+    resolveGamePromise = resolve;
+});
 
 function workingSpace() {
 
+    if(gameover) {
+return
+    }
+   
 
 let sizex =100;
 
@@ -167,12 +176,12 @@ let currentTimeProjectileEnemy= Date.now();
                     { x: 0, y: 7 },
                     5
                 ));}
+
             });
         });
         lastShootTime2 = currentTimeProjectileEnemy;
     }
 
-    // ACTUALIZAR PROYECTILES ENEMIGOS
     projectilesEnemy.forEach((projectile, index) => {
         if(projectile.position.y + projectile.radius >= innerHeight ) {
             setTimeout(() => {
@@ -180,7 +189,34 @@ let currentTimeProjectileEnemy= Date.now();
         } else {
             projectile.update();
         }
-    });
+    if (
+        projectile.position.y >= Ship.position.y &&
+        projectile.position.x >= Ship.position.x
+        
+    ) {
+           setTimeout(() => {
+            projectilesEnemy.splice(index, 1);
+        }, 0);
+
+        // 2. Cambia el estado del juego a "Game Over"
+        
+       gameover = true
+        resolveGamePromise(true); 
+        console.log("hit");
+    }
+        })
+       
+        
+            
+
+
+     
+    
+     
+       
+  
+
+    // ACTUALIZAR PROYECTILES ENEMIGOS
 
 
 
@@ -272,8 +308,4 @@ class Projectile {
 
 
 
-
-
-
-
-export {workingSpace, canvas, c, projectiles};
+export {workingSpace, canvas, c, projectiles, gameEndPromise};

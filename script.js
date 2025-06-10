@@ -1,5 +1,5 @@
 import setButton from './button.js';
-import { workingSpace } from './game-sw.js';
+import { workingSpace, gameEndPromise } from './game-sw.js';
 
 //const {text} = require('./text_starwars.js');
 // Alternativa para importar todo import * as config from './config.js';
@@ -25,7 +25,18 @@ setButton().then(() => {
 });
 
 
+async function EndGame(){
+
+  let final = await gameEndPromise
+  if(final===true){
+    const canva2 = document.getElementById('canvas');
+    canva2.style.display ="none";
+    console.log('game over')
+
+  }
+}
 
 
+EndGame()
 
 
