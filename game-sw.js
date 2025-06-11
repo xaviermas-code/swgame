@@ -12,6 +12,8 @@ const gameEndPromise = new Promise(resolve => {
     resolveGamePromise = resolve;
 });
 
+
+
 function workingSpace() {
 
     if(gameover) {
@@ -164,7 +166,7 @@ function animate() {
     })
 
 
-
+setTimeout(function() { 
     
 let currentTimeProjectileEnemy= Date.now();
     if(currentTimeProjectileEnemy - lastShootTime2 > shootCooldown_enemy){
@@ -182,6 +184,8 @@ let currentTimeProjectileEnemy= Date.now();
         lastShootTime2 = currentTimeProjectileEnemy;
     }
 
+},3000);
+
     projectilesEnemy.forEach((projectile, index) => {
         if(projectile.position.y + projectile.radius >= innerHeight ) {
             setTimeout(() => {
@@ -190,10 +194,14 @@ let currentTimeProjectileEnemy= Date.now();
             projectile.update();
         }
     if (
-        projectile.position.y >= Ship.position.y &&
-        projectile.position.x >= Ship.position.x
-        
-    ) {
+       
+    projectile.position.x + projectile.radius > Ship.position.x &&
+    projectile.position.x - projectile.radius < Ship.position.x + Ship.sizex &&
+    projectile.position.y + projectile.radius > Ship.position.y &&
+    projectile.position.y - projectile.radius < Ship.position.y + Ship.sizey )
+  
+
+     {
            setTimeout(() => {
             projectilesEnemy.splice(index, 1);
         }, 0);

@@ -32,11 +32,13 @@ async function EndGame(){
     const canva2 = document.getElementById('canvas');
     canva2.style.display ="none";
     console.log('game over')
-
-  }
+    const textEndgame = document.createElement("h1");
+    textEndgame.textContent = "Game Over"
+    const container = document.getElementById("containerEndGame")
+    container.appendChild(textEndgame)
 }
 
-
+}
 EndGame()
 
 

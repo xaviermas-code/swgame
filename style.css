@@ -15,3 +15,16 @@ canvas {
     background-color: black;
   
 }
+#contflex {
+    height:100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+}
+#containerEndGame h1 {
+
+    color:yellow;
+    font-family: "Edu QLD Hand";
+}

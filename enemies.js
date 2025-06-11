@@ -125,6 +125,9 @@ class ProjectileEnemy {
     get velocity() {
     return this._velocity;
 }
+ get radius() {
+    return this._radius;
+ }
 
     draw() {
         // Draw the bullet
