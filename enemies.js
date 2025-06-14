@@ -1,5 +1,7 @@
 import { canvas,c, projectiles } from "./game-sw.js";
-
+let nextPhaseSend;
+let nextPhase = new Promise (resolve => {
+nextPhaseSend = resolve });
 
 class Enemy {
     constructor({ position }) { // <-- aceptar parámetro correctamente
@@ -46,7 +48,7 @@ class Grid {
         x:0,
         y:0
     }
-    const rows = Math.floor(Math.random()*5+2)
+    const rows = 2 //Math.floor(Math.random()*5+2)
     this.enemies = []
     for (let x=0; x < 10; x++) {
     for (let y=0; y < rows; y++) {
@@ -54,7 +56,7 @@ class Grid {
             new Enemy({
             position: {
                 x: x * 150,
-                y: y * 100
+                y: 0
             }
 
     })
@@ -87,6 +89,7 @@ function animateExplosion(position) {
 }
 
 function collision() {
+    let count = 0;
     grids.forEach((grid) => {
         grid.enemies.forEach((enemy, i) => { 
                         projectiles.forEach((projectile, j) => {
@@ -97,15 +100,21 @@ function collision() {
                     projectile.position.y + projectile.radius >= enemy.position.y
                 ) {
                     // Colisión detectada
+                    count++
                     Promise.resolve()
                     .then(() => {
                         grid.enemies.splice(i, 1);   // elimina ese enemy
                         projectiles.splice(j, 1);    // elimina ese projectile
                     })
                     .then(() => animateExplosion(enemy.position))
+                    setTimeout(() => {
+                    if(count >= grid.enemies.length) {
+                        nextPhaseSend(true);
 
-                }
-            });
+                        }
+                    }, 0);
+                
+            }});
         });
     });
 }
@@ -152,7 +161,7 @@ class ProjectileEnemy {
 
 
 
-export {gridAnimate, grids, collision, ProjectileEnemy, projectilesEnemy};
+export {gridAnimate, grids, collision, ProjectileEnemy, projectilesEnemy, nextPhase, Grid, Enemy};
 
 
 

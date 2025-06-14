@@ -1,4 +1,7 @@
 import {gridAnimate, grids, collision, projectilesEnemy, ProjectileEnemy} from './enemies.js';
+import { gridAnimate2, triger } from './enemy2.js';
+
+
 const projectiles = [];
 var c;
 const canvas = document.querySelector("canvas");
@@ -151,6 +154,11 @@ function animate() {
     
     gridAnimate();
     collision();
+    if(triger === true) {
+        gridAnimate2();
+
+    }
+    
 
 
 
@@ -175,7 +183,7 @@ let currentTimeProjectileEnemy= Date.now();
                 if(Math.random()*10>8) {
                 projectilesEnemy.push(new ProjectileEnemy(
                     { x: enemy.position.x + enemy.width / 2, y: enemy.position.y + enemy.height },
-                    { x: 0, y: 7 },
+                    { x: 0, y: 3 },
                     5
                 ));}
 

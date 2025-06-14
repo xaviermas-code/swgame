@@ -1,6 +1,7 @@
 import setButton from './button.js';
 import { workingSpace, gameEndPromise } from './game-sw.js';
 
+
 //const {text} = require('./text_starwars.js');
 // Alternativa para importar todo import * as config from './config.js';
 // Button
@@ -40,5 +41,6 @@ async function EndGame(){
 
 }
 EndGame()
+
 
 
